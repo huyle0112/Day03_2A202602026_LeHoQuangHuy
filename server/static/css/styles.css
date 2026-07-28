@@ -1,0 +1,454 @@
+/* Component styles dựng trên các token trong tokens.css, theo đúng mô tả trong DESIGN.md */
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ---------- Top nav ---------- */
+.top-nav {
+  height: 80px;
+  background: var(--color-canvas);
+  border-bottom: 1px solid var(--color-hairline);
+  display: flex;
+  align-items: center;
+}
+.top-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.top-nav .brand {
+  color: var(--color-primary);
+  font: 700 22px/1.2 var(--font-family-base);
+}
+
+/* ---------- Search bar pill ---------- */
+.search-bar-pill {
+  height: 64px;
+  background: var(--color-canvas);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  align-items: stretch;
+  max-width: 640px;
+  margin: var(--space-xxl) auto;
+}
+.search-field-segment {
+  flex: 1;
+  padding: var(--space-sm) var(--space-lg);
+  border-right: 1px solid var(--color-hairline);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.search-field-segment label {
+  color: var(--color-ink);
+}
+.search-field-segment select,
+.search-field-segment input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font: 400 14px/1.43 var(--font-family-base);
+  color: var(--color-ink);
+  width: 100%;
+  padding: 0;
+}
+.search-orb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  margin-right: var(--space-sm);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.search-orb:hover {
+  background: var(--color-primary-active);
+}
+
+/* ---------- Property card grid ---------- */
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-base);
+  padding-bottom: var(--space-section);
+}
+@media (max-width: 1128px) {
+  .property-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 744px) {
+  .property-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-card {
+  background: var(--color-canvas);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+.property-card:hover {
+  box-shadow: var(--shadow-elevated);
+}
+.property-card-photo {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-on-primary);
+  font: 700 22px/1 var(--font-family-base);
+  position: relative;
+}
+.guest-favorite-badge {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  background: var(--color-canvas);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font: 600 11px/1.18 var(--font-family-base);
+}
+.property-card-body {
+  padding-top: var(--space-sm);
+}
+.property-card-title {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+.property-card-meta {
+  color: var(--color-muted);
+  margin-top: var(--space-xxs);
+}
+.property-card-price {
+  margin-top: var(--space-xs);
+  font: 600 14px/1.43 var(--font-family-base);
+}
+
+/* ---------- Buttons ---------- */
+.button-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 24px;
+  height: 48px;
+  font: 500 16px/1.25 var(--font-family-base);
+  cursor: pointer;
+  width: 100%;
+}
+.button-primary:hover {
+  background: var(--color-primary-active);
+}
+.button-primary:disabled {
+  background: var(--color-primary-disabled);
+  cursor: not-allowed;
+}
+.button-secondary {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-sm);
+  padding: 13px 23px;
+  height: 48px;
+  font: 500 16px/1.25 var(--font-family-base);
+  cursor: pointer;
+}
+
+/* ---------- Modal / reservation card ---------- */
+.modal-scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--color-scrim);
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: var(--space-xxl) var(--space-base);
+  z-index: 100;
+}
+.modal-scrim.open {
+  display: flex;
+}
+.reservation-card {
+  background: var(--color-canvas);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
+  padding: var(--space-lg);
+  max-width: 480px;
+  width: 100%;
+}
+.reservation-card .close-btn {
+  float: right;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+.amenity-row {
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--color-hairline-soft);
+  color: var(--color-body);
+}
+.amenity-row:last-of-type {
+  border-bottom: 1px solid var(--color-hairline-soft);
+}
+
+/* ---------- Forms ---------- */
+.text-input {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  height: 56px;
+  width: 100%;
+  font: 400 16px/1.5 var(--font-family-base);
+  margin-bottom: var(--space-md);
+}
+.text-input:focus {
+  outline: none;
+  border: 2px solid var(--color-ink);
+  padding: 13px 11px;
+}
+.field-label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--color-muted);
+}
+.form-feedback {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+}
+.form-feedback.success {
+  background: var(--color-surface-soft);
+  color: var(--color-ink);
+}
+.form-feedback.error {
+  background: #fdeceb;
+  color: var(--color-primary-error-text);
+}
+
+/* ---------- Footer ---------- */
+.footer-light {
+  background: var(--color-canvas);
+  border-top: 1px solid var(--color-hairline);
+  padding: var(--space-xxl) var(--space-xl);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* ---------- Chat widget (không có token riêng trong DESIGN.md — tái dùng token nền tảng) ---------- */
+.chat-fab {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  box-shadow: var(--shadow-elevated);
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 200;
+}
+.chat-fab:hover {
+  background: var(--color-primary-active);
+}
+
+.chat-panel {
+  position: fixed;
+  bottom: calc(var(--space-xl) + 72px);
+  right: var(--space-xl);
+  width: 360px;
+  max-height: 520px;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 200;
+}
+.chat-panel.open {
+  display: flex;
+}
+.chat-panel-header {
+  padding: var(--space-md) var(--space-base);
+  border-bottom: 1px solid var(--color-hairline);
+  font: 600 16px/1.25 var(--font-family-base);
+}
+.chat-panel-header .sub {
+  display: block;
+  color: var(--color-muted);
+  font: 400 13px/1.23 var(--font-family-base);
+  margin-top: 2px;
+}
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.chat-message-bot,
+.chat-message-user {
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  max-width: 85%;
+  font: 400 14px/1.43 var(--font-family-base);
+  white-space: pre-wrap;
+}
+.chat-message-bot {
+  background: var(--color-surface-soft);
+  align-self: flex-start;
+}
+.chat-message-user {
+  background: var(--color-surface-strong);
+  align-self: flex-end;
+}
+.chat-trace {
+  align-self: flex-start;
+  color: var(--color-muted);
+  font: 400 13px/1.23 var(--font-family-base);
+  max-width: 90%;
+  white-space: pre-wrap;
+}
+.chat-input-row {
+  border-top: 1px solid var(--color-hairline);
+  padding: var(--space-sm);
+  display: flex;
+  gap: var(--space-sm);
+}
+.chat-input-row input {
+  flex: 1;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font: 400 14px/1.43 var(--font-family-base);
+}
+.chat-input-row input:focus {
+  outline: none;
+  border: 2px solid var(--color-ink);
+}
+.chat-send {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.chat-send:hover {
+  background: var(--color-primary-active);
+}
+.chat-send:disabled {
+  background: var(--color-primary-disabled);
+  cursor: not-allowed;
+}
+
+.empty-state {
+  color: var(--color-muted);
+  padding: var(--space-xxl) 0;
+  text-align: center;
+}
+
+/* ---------- Trang /compare: Chatbot Baseline vs ReAct Agent ---------- */
+.compare-form {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-base);
+  padding-bottom: var(--space-section);
+}
+@media (max-width: 744px) {
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.compare-panel {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+.compare-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font: 600 16px/1.25 var(--font-family-base);
+  margin-bottom: var(--space-md);
+}
+.compare-panel-body {
+  color: var(--color-body);
+  font: 400 14px/1.5 var(--font-family-base);
+  white-space: pre-wrap;
+}
+.tool-call-badge {
+  display: inline-block;
+  background: var(--color-surface-strong);
+  color: var(--color-ink);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font: 600 11px/1.18 var(--font-family-base);
+  margin-bottom: var(--space-md);
+}
+.step-line {
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-sm);
+  font: 400 13px/1.43 var(--font-family-base);
+}
+.step-thought {
+  background: var(--color-surface-soft);
+  color: var(--color-body);
+}
+.step-action {
+  background: var(--color-surface-strong);
+  color: var(--color-ink);
+}
+.step-observation {
+  border: 1px solid var(--color-hairline);
+  color: var(--color-muted);
+}
+.step-guardrail {
+  background: #fdeceb;
+  color: var(--color-primary-error-text);
+}
+.final-answer-block {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-hairline-soft);
+  font: 500 14px/1.5 var(--font-family-base);
+  color: var(--color-ink);
+  white-space: pre-wrap;
+}

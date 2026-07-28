@@ -127,43 +127,71 @@ def call_tool(tool_name: str, raw_args: str) -> str:
         return json.dumps({"status": "error", "message": f"Lỗi khi gọi tool '{tool_name}': {str(e)}"}, ensure_ascii=False)
 
 
-def run_react_agent(user_query: str, provider):
+def run_react_agent_steps(user_query: str, provider) -> list:
     """
-    Vòng lặp ReAct Agent (Thought -> Action -> Observation) có Guardrails,
-    gọi tool thật từ tools.py và không cho phép LLM tự bịa Observation.
-    """
-    print(f"\n🤖 [REACT AGENT] Câu hỏi: {user_query}")
+    Vòng lặp ReAct THUẦN LOGIC (không print) — trả về danh sách các bước để cả
+    CLI (run_react_agent) và lớp web (server/main.py) dùng chung, tránh lặp code.
 
+    Mỗi phần tử dict có dạng một trong các case sau:
+      - {"step": n, "thought": str, "final_answer": str}
+      - {"step": n, "thought": str, "tool_name": str, "raw_args": str, "observation": str}
+      - {"step": n, "thought": str, "error": "unparseable_format", "raw_response": str}
+      - {"step": MAX_ITERATIONS, "guardrail_triggered": True, "message": str}
+    """
     system_prompt = build_react_system_prompt()
     scratchpad = ""
-    step = 0
+    steps = []
 
-    while step < MAX_ITERATIONS:
-        step += 1
-        print(f"\n--- 🔄 Vòng lặp ReAct (Step {step}/{MAX_ITERATIONS}) ---")
-
+    for step in range(1, MAX_ITERATIONS + 1):
         user_prompt = f"Câu hỏi: {user_query}\n{scratchpad}"
         response = provider.generate(user_prompt, system_prompt=system_prompt)
 
         thought, tool_name, raw_args, final_answer = parse_react_response(response)
-        if thought:
-            print(f"🧠 Thought: {thought}")
 
         if final_answer:
-            print(f"🏁 Final Answer: {final_answer}")
-            return
+            steps.append({"step": step, "thought": thought, "final_answer": final_answer})
+            return steps
 
         if not tool_name:
-            print(f"⚠️ Không nhận diện được định dạng phản hồi hợp lệ từ LLM:\n{response}")
-            return
+            steps.append({"step": step, "thought": thought, "error": "unparseable_format", "raw_response": response})
+            return steps
 
-        print(f"🛠️ Action: {tool_name}[{raw_args}]")
         observation = call_tool(tool_name, raw_args)
-        print(f"👁️ Observation: {observation}")
-
+        steps.append({
+            "step": step, "thought": thought, "tool_name": tool_name,
+            "raw_args": raw_args, "observation": observation,
+        })
         scratchpad += f"\nThought: {thought}\nAction: {tool_name}[{raw_args}]\nObservation: {observation}\n"
 
-    print(f"🛡️ GUARDRAIL TRIGGERED: Đã đạt giới hạn tối đa {MAX_ITERATIONS} bước. Ngắt lặp an toàn!")
+    steps.append({
+        "step": MAX_ITERATIONS, "guardrail_triggered": True,
+        "message": f"Đã đạt giới hạn tối đa {MAX_ITERATIONS} bước. Ngắt lặp an toàn!",
+    })
+    return steps
+
+
+def run_react_agent(user_query: str, provider):
+    """
+    Vòng lặp ReAct Agent (Thought -> Action -> Observation) có Guardrails, in ra
+    console. Chỉ là wrapper hiển thị của run_react_agent_steps() để CLI và web
+    dùng chung một logic duy nhất.
+    """
+    print(f"\n🤖 [REACT AGENT] Câu hỏi: {user_query}")
+
+    for s in run_react_agent_steps(user_query, provider):
+        print(f"\n--- 🔄 Vòng lặp ReAct (Step {s['step']}/{MAX_ITERATIONS}) ---")
+        if s.get("thought"):
+            print(f"🧠 Thought: {s['thought']}")
+
+        if "final_answer" in s:
+            print(f"🏁 Final Answer: {s['final_answer']}")
+        elif "tool_name" in s:
+            print(f"🛠️ Action: {s['tool_name']}[{s['raw_args']}]")
+            print(f"👁️ Observation: {s['observation']}")
+        elif s.get("guardrail_triggered"):
+            print(f"🛡️ GUARDRAIL TRIGGERED: {s['message']}")
+        elif s.get("error"):
+            print(f"⚠️ Không nhận diện được định dạng phản hồi hợp lệ từ LLM:\n{s['raw_response']}")
 
 
 if __name__ == "__main__":

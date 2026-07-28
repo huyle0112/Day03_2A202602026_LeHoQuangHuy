@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lab 03 · Chatbot vs ReAct Agent</title>
+  <link rel="stylesheet" href="/static/css/tokens.css" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="container">
+      <span class="brand">nhatro</span>
+      <a class="text-body-sm" href="/" style="color: var(--color-muted)">← Về trang tìm phòng</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div style="margin: var(--space-xl) 0">
+      <div class="text-display-sm">🏫 Lab 03</div>
+      <div class="text-body-sm" style="color: var(--color-muted); margin-top: var(--space-xxs)">
+        Chatbot vs ReAct Agent — Trợ Lý Tìm &amp; Đặt Lịch Xem Nhà Trọ / Căn Hộ Cho Thuê
+      </div>
+    </div>
+
+    <form class="compare-form" id="compare-form">
+      <label class="field-label" for="test-case-select">Test Case có sẵn</label>
+      <select class="text-input" id="test-case-select"></select>
+
+      <label class="field-label" for="question-input">Câu hỏi</label>
+      <textarea class="text-input" id="question-input" rows="4" required style="height: auto; resize: vertical"></textarea>
+
+      <button class="button-primary" type="submit" id="run-btn">▶️ Chạy so sánh</button>
+    </form>
+
+    <div class="compare-grid">
+      <section class="compare-panel">
+        <div class="compare-panel-header">
+          <span>💬 Chatbot Baseline</span>
+          <span class="text-caption-sm" id="baseline-meta" style="color: var(--color-muted)"></span>
+        </div>
+        <div class="compare-panel-body" id="baseline-output">Chọn câu hỏi rồi bấm "Chạy so sánh" để xem kết quả.</div>
+      </section>
+
+      <section class="compare-panel">
+        <div class="compare-panel-header">
+          <span>🤖 ReAct Agent</span>
+          <span class="text-caption-sm" id="react-meta" style="color: var(--color-muted)"></span>
+        </div>
+        <span class="tool-call-badge" id="tool-call-badge" style="display: none"></span>
+        <div class="compare-panel-body" id="react-steps"></div>
+        <div class="final-answer-block" id="react-final" style="display: none"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer-light text-caption-sm">
+    © 2026 Trợ Lý Tìm &amp; Đặt Lịch Xem Nhà Trọ — VinUni Lab 03
+  </footer>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/compare.js"></script>
+</body>
+</html>
