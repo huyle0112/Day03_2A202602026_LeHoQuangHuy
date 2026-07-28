@@ -69,5 +69,21 @@ timeline
 
 ---
 
+### 🌐 5. GIAO DIỆN WEB (MARKETPLACE + CHAT AGENT)
+
+Ngoài chạy CLI (`python src/app.py`), dự án có thêm giao diện web (Flask, theo hệ thiết kế
+`DESIGN.md`) để duyệt/tìm phòng, đặt lịch xem nhà, và chat trực tiếp với ReAct Agent:
+
+```bash
+pip install -r requirements.txt
+python server/main.py
+# mở http://127.0.0.1:8000
+```
+
+Hai cách chạy (`python src/app.py` và `python server/main.py`) độc lập với nhau, không ảnh hưởng
+lẫn nhau.
+
+---
+
 > 🚀 **BẮT ĐẦU LÀM BÀI**:
 > Vui lòng mở sổ tay thực hành 👉 **[PHAN_CONG_CONG_VIEC.md](file:///c:/Users/Admin/Documents/VinUni/LabCoachVin/LabKeyCoach/Day-3-Lab-Chatbot-vs-react-agent-E402/docs/PHAN_CONG_CONG_VIEC.md)** để xem phân vai và checklist công việc cụ thể cho từng thành viên!

@@ -1,0 +1,129 @@
+/* Chuyển thẳng 1:1 từ front-matter DESIGN.md (colors/typography/spacing/rounded/shadow) */
+
+:root {
+  /* colors */
+  --color-primary: #ff385c;
+  --color-primary-active: #e00b41;
+  --color-primary-disabled: #ffd1da;
+  --color-primary-error-text: #c13515;
+  --color-primary-error-text-hover: #b32505;
+  --color-luxe: #460479;
+  --color-plus: #92174d;
+  --color-ink: #222222;
+  --color-body: #3f3f3f;
+  --color-muted: #6a6a6a;
+  --color-muted-soft: #929292;
+  --color-hairline: #dddddd;
+  --color-hairline-soft: #ebebeb;
+  --color-border-strong: #c1c1c1;
+  --color-canvas: #ffffff;
+  --color-surface-soft: #f7f7f7;
+  --color-surface-card: #ffffff;
+  --color-surface-strong: #f2f2f2;
+  --color-on-primary: #ffffff;
+  --color-on-dark: #ffffff;
+  --color-legal-link: #428bff;
+  --color-star-rating: #222222;
+  --color-scrim: rgba(0, 0, 0, 0.5);
+
+  /* rounded */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* spacing (4px base, 2px micro-step) */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-base: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 64px;
+
+  /* elevation — 1 tier duy nhất theo DESIGN.md */
+  --shadow-elevated: rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0,
+    rgba(0, 0, 0, 0.1) 0 4px 8px 0;
+
+  /* Airbnb Cereal VF không khả dụng công khai -> dùng Inter theo đúng gợi ý "Note on Font Substitutes" của DESIGN.md */
+  --font-family-base: "Inter", "Airbnb Cereal VF", Circular, -apple-system, system-ui, Roboto,
+    "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  color: var(--color-ink);
+  background: var(--color-canvas);
+}
+
+/* typography tokens -> utility classes, 1:1 từ khối `typography:` */
+.text-display-xl {
+  font: 700 28px/1.43 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-display-lg {
+  font: 500 22px/1.18 var(--font-family-base);
+  letter-spacing: -0.44px;
+}
+.text-display-md {
+  font: 700 21px/1.43 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-display-sm {
+  font: 600 20px/1.2 var(--font-family-base);
+  letter-spacing: -0.18px;
+}
+.text-title-md {
+  font: 600 16px/1.25 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-title-sm {
+  font: 500 16px/1.25 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-rating-display {
+  font: 700 64px/1.1 var(--font-family-base);
+  letter-spacing: -1px;
+}
+.text-body-md {
+  font: 400 16px/1.5 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-body-sm {
+  font: 400 14px/1.43 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-caption {
+  font: 500 14px/1.29 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-caption-sm {
+  font: 400 13px/1.23 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-badge {
+  font: 600 11px/1.18 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-button-md {
+  font: 500 16px/1.25 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-button-sm {
+  font: 500 14px/1.29 var(--font-family-base);
+  letter-spacing: 0;
+}
+.text-nav-link {
+  font: 600 16px/1.25 var(--font-family-base);
+  letter-spacing: 0;
+}

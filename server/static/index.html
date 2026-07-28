@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trợ Lý Tìm & Đặt Lịch Xem Nhà Trọ</title>
+  <link rel="stylesheet" href="/static/css/tokens.css" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="container">
+      <span class="brand">nhatro</span>
+      <a class="text-body-sm" href="/compare" style="color: var(--color-muted)">🧪 So sánh Chatbot vs ReAct Agent</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <form class="search-bar-pill" id="search-form">
+      <div class="search-field-segment">
+        <label class="text-caption" for="location-select">Khu vực</label>
+        <select id="location-select" required>
+          <option value="" disabled selected>Chọn khu vực</option>
+        </select>
+      </div>
+      <div class="search-field-segment" style="border-right: none">
+        <label class="text-caption" for="price-input">Giá tối đa (VNĐ)</label>
+        <input id="price-input" type="number" min="1" step="100000" placeholder="VD: 4000000" required />
+      </div>
+      <button class="search-orb" type="submit" title="Tìm phòng">🔍</button>
+    </form>
+
+    <div id="results" class="property-grid"></div>
+    <div id="empty-state" class="empty-state">Chọn khu vực và mức giá rồi bấm tìm để xem danh sách phòng.</div>
+  </main>
+
+  <footer class="footer-light text-caption-sm">
+    © 2026 Trợ Lý Tìm & Đặt Lịch Xem Nhà Trọ — VinUni Lab 03
+  </footer>
+
+  <!-- Modal chi tiết phòng + form đặt lịch xem nhà -->
+  <div class="modal-scrim" id="detail-modal">
+    <div class="reservation-card" id="detail-card"></div>
+  </div>
+
+  <!-- Chat widget: demo ReAct Agent bằng ngôn ngữ tự nhiên -->
+  <button class="chat-fab" id="chat-fab" title="Hỏi trợ lý AI">💬</button>
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-panel-header">
+      Trợ lý AI (ReAct Agent)
+      <span class="sub">Gõ yêu cầu tìm/đặt lịch xem nhà tự nhiên</span>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-message-bot">Chào bạn! Bạn muốn tìm phòng trọ ở đâu, mức giá bao nhiêu?</div>
+    </div>
+    <div class="chat-input-row">
+      <input id="chat-input" type="text" placeholder="VD: Tìm phòng ở Cầu Giấy dưới 4 triệu..." />
+      <button class="chat-send" id="chat-send" title="Gửi">➤</button>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/chat.js"></script>
+</body>
+</html>
